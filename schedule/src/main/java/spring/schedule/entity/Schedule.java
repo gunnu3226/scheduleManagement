@@ -3,10 +3,9 @@ package spring.schedule.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import spring.schedule.dto.ScheduleRequestDto;
-
-import java.time.LocalDateTime;
+import spring.schedule.dto.ScheduleUpdateRequestDto;
+import spring.schedule.exception.MismatchPasswordException;
 
 @Entity
 @Table(name = "shcedule")
@@ -34,5 +33,22 @@ public class Schedule {
         this.author = requestDto.getAuthor();
         this.password = requestDto.getPassword();
         this.inputTime = requestDto.getInputTime();
+    }
+
+    public Schedule(ScheduleUpdateRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.author = requestDto.getAuthor();
+        this.password = requestDto.getPassword();
+    }
+
+
+    public void update(ScheduleUpdateRequestDto requestDto) {
+        if (!requestDto.getPassword().equals(this.password)) {
+            throw new MismatchPasswordException();
+        }
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.author = requestDto.getAuthor();
     }
 }

@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import spring.schedule.entity.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    Schedule findById(long scheduleId);
 }
