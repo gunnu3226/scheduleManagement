@@ -7,7 +7,7 @@ import spring.schedule.entity.Schedule;
 import java.time.LocalDateTime;
 
 @Getter @Setter
-public class ScheduleCreateResponseDto {
+public class ScheduleResponseDto {
 
     private Long id;
 
@@ -19,7 +19,7 @@ public class ScheduleCreateResponseDto {
 
     private String inputTime;
 
-    public ScheduleCreateResponseDto(Schedule schedule) {
+    public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
