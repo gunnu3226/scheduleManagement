@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import spring.schedule.dto.ScheduleDeleteRequestDto;
 import spring.schedule.dto.ScheduleRequestDto;
 import spring.schedule.dto.ScheduleResponseDto;
 import spring.schedule.dto.ScheduleUpdateRequestDto;
@@ -22,7 +23,7 @@ public class ScheduleController {
     @PostMapping("/new")
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         ScheduleResponseDto responseDto = scheduleService.createSchedule(requestDto);
-        return ResponseEntity.ok().body(responseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @GetMapping("/{scheduleId}")
@@ -31,11 +32,21 @@ public class ScheduleController {
         return ResponseEntity.ok().body(responseDto);
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<ScheduleResponseDto>> readScheduleList() {
+        List<ScheduleResponseDto> scheduleResponseDtoList = scheduleService.readScheduleList();
+        return ResponseEntity.ok().body(scheduleResponseDtoList);
+    }
+
     @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleUpdateRequestDto requestDto) {
         ScheduleResponseDto responseDto = scheduleService.updateSchedule(scheduleId, requestDto);
         return ResponseEntity.ok().body(responseDto);
     }
 
-
+    @DeleteMapping("{scheduleId}")
+    public ResponseEntity<Long> deleteSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleDeleteRequestDto requestDto) {
+        Long id = scheduleService.deleteSchedule(scheduleId, requestDto);
+        return ResponseEntity.ok().body(id);
+    }
 }

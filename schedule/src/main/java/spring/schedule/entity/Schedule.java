@@ -35,13 +35,6 @@ public class Schedule {
         this.inputTime = requestDto.getInputTime();
     }
 
-    public Schedule(ScheduleUpdateRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.contents = requestDto.getContents();
-        this.author = requestDto.getAuthor();
-        this.password = requestDto.getPassword();
-    }
-
 
     public void update(ScheduleUpdateRequestDto requestDto) {
         if (!requestDto.getPassword().equals(this.password)) {
