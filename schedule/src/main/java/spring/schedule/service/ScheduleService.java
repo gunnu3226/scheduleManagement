@@ -1,10 +1,7 @@
 package spring.schedule.service;
 
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import spring.schedule.dto.ScheduleDeleteRequestDto;
 import spring.schedule.dto.ScheduleRequestDto;
@@ -17,7 +14,6 @@ import spring.schedule.repository.ScheduleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +21,6 @@ import java.util.Optional;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-    @Autowired EntityManager em;
 
     @Transactional
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {

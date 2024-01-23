@@ -32,8 +32,7 @@ class ScheduleServiceTest {
 
     @Autowired ScheduleService scheduleService;
     @Autowired ScheduleRepository scheduleRepository;
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceContext EntityManager em;
 
     private ScheduleRequestDto testDataDto1;
     private ScheduleRequestDto testDataDto2;
@@ -86,10 +85,7 @@ class ScheduleServiceTest {
         em.clear();
         //when
         //then
-        assertThrows(NoSuchElementException.class, () -> {
-            ScheduleResponseDto savedResponseDto = scheduleService.readSchedule(100);
-        });
-
+        assertThrows(NoSuchElementException.class, () -> {scheduleService.readSchedule(100);});
     }
 
     @Test
@@ -114,8 +110,7 @@ class ScheduleServiceTest {
         updateRequestDto.setPassword("1234");
         //when
         scheduleService.updateSchedule(savedschedule.getId(), updateRequestDto);
-        em.clear();
-        Schedule schedule = em.find(Schedule.class, savedschedule.getId());
+        Schedule schedule = scheduleRepository.findById(savedschedule.getId()).orElseThrow();
         //then
         assertThat(schedule.getTitle()).isEqualTo("변경된제목");
         assertThat(schedule.getContents()).isEqualTo("변경된내용");
@@ -147,7 +142,7 @@ class ScheduleServiceTest {
         Long deletedId = scheduleService.deleteSchedule(savedschedule.getId(), deleteRequestDto);
         //then
         assertThrows(EntityNotFoundException.class, () -> {
-            scheduleRepository.findById(savedschedule.getId()).orElseThrow(EntityNotFoundException::new);
+            scheduleRepository.findById(deletedId).orElseThrow(EntityNotFoundException::new);
         });
     }
 }
